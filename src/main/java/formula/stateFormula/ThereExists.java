@@ -17,4 +17,9 @@ public class ThereExists extends StateFormula {
         pathFormula.writeToBuffer(buffer);
         buffer.append(")");
     }
+
+    @Override
+    public String getType(){
+        return "THEREEXISTS";
+    }
 }

@@ -18,4 +18,10 @@ public class And extends StateFormula {
         buffer.append(")");
     }
 
+    @Override
+    public String getType(){
+        return "AND";
+    }
+
+
 }

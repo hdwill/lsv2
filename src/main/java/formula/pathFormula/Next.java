@@ -24,4 +24,9 @@ public class Next extends PathFormula {
         ;
     }
 
+    @Override
+    public String getType(){
+        return "NEXT";
+    }
+
 }

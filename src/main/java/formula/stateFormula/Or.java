@@ -18,4 +18,9 @@ public class Or extends StateFormula {
         buffer.append(")");
     }
 
+    @Override
+    public String getType(){
+        return "OR";
+    }
+
 }

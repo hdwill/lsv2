@@ -31,4 +31,9 @@ public class Eventually extends PathFormula {
         ;
     }
 
+    @Override
+    public String getType(){
+        return "EVENTUALLY";
+    }
+
 }

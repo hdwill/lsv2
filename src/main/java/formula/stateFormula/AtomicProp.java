@@ -12,4 +12,9 @@ public class AtomicProp extends formula.stateFormula.StateFormula {
         buffer.append(" " + label + " ");
     }
 
+    @Override
+    public String getType(){
+        return "ATOMIC";
+    }
+
 }

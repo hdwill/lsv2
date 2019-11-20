@@ -13,4 +13,9 @@ public class BoolProp extends StateFormula {
         buffer.append(" " + stringValue + " ");
     }
 
+    @Override
+    public String getType(){
+        return "BOOL";
+    }
+
 }

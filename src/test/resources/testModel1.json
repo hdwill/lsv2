@@ -1,0 +1,26 @@
+{
+  "states": [
+    {
+      "init": true,
+      "name": "s0",
+      "label": ["p"]
+    },
+    {
+      "init": false,
+      "name": "s1",
+      "label": ["q"]
+    }
+  ],
+  "transitions": [
+    {
+      "source": "s0",
+      "target": "s1",
+      "actions": ["act1"]
+    },
+    {
+      "source": "s1",
+      "target": "s0",
+      "actions": ["act2"]
+    }
+  ]
+}

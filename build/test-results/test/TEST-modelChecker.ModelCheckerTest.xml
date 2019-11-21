@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="modelChecker.ModelCheckerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-12T12:48:36" hostname="pc3-015-l" time="0.187">
+<testsuite name="modelChecker.ModelCheckerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-21T16:39:09" hostname="pc3-007-l" time="0.177">
   <properties/>
-  <testcase name="buildAndCheckModel" classname="modelChecker.ModelCheckerTest" time="0.187"/>
+  <testcase name="buildAndCheckModel" classname="modelChecker.ModelCheckerTest" time="0.177"/>
   <system-out><![CDATA[s0-[act1]-s1
-s0-[act2]-s2
-s1-[act2]-s2
-s2-[act2]-s0
+s1-[act2]-s0
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

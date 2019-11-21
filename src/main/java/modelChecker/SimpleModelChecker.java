@@ -28,7 +28,7 @@ public class SimpleModelChecker implements ModelChecker {
 
     @Override
     public boolean check(Model model, StateFormula constraint, StateFormula query) {
-        return false;
+        return evaluate(constraint, model.getStates()[0]);
     }
 
     @Override
@@ -110,56 +110,48 @@ public class SimpleModelChecker implements ModelChecker {
      * @param state
      */
     private boolean evaluate(StateFormula formula, State state){
+        // Translate the formula into one that conforms to asCTL:
+        // Φ ::= true | p | ¬Φ | Φ ∧ Φ | ∃φ | ∀φ
+        formula = recursiveStateBreak(formula);
+        return recursiveEval(formula, state);
+    }
+
+    private boolean recursiveEval(StateFormula formula, State state){
+
+        if (formula instanceof AtomicProp){
+            for (String label : state.getLabel()) {
+                if (label.equals(((AtomicProp) formula).label)) return true;
+            }
+            return false;
+        }
+
+        else if (formula instanceof Not) {
+            return !recursiveEval(((Not) formula).stateFormula, state);
+        }
+
+        else if (formula instanceof And){
+            return (recursiveEval(((And) formula).left, state) && recursiveEval(((And) formula).right, state));
+        }
+
+        else if (formula instanceof ThereExists){
+            return true; // FIXME: 21/11/2019 pls
+        }
+
+        else if (formula instanceof ForAll){
+            return true;
+        }
+
         return false;
     }
 
 
-    private boolean checkPathsInit(Model model, Predicate predicate, Until u){
-        // All paths must start from initial states, so we can filter out the rest for this for-loop.
-        List<State> initStates = Arrays.stream(model.getStates())
-                .filter(State::isInit)
-                .collect(Collectors.toList());
-        for (State initState : initStates) {
-            for (State otherState : model.getStates()) {
-                otherState.setVisited(false);
-            }
-        }
-        return false;
-    }
-
-    private ArrayList<ArrayList<String>> checkPaths(Model model, Until u, State state, ArrayList<ArrayList<String>> path){
-        state.setVisited(true);
-
-        path = null;
-
-        // A depth-first search through the model.
-        for (Transition transition: model.getTransistionsFrom(state)) {
-            if (!model.getState(transition.getTarget()).isVisited()) {
-                // Add all the actions required to get to the target to the path.
-                path = checkPaths(model, u, model.getState(transition.getTarget()), path);
-            }
-        }
-
-        // If phiRight holds in this state and it can be reached using actions in action set B,
-        // it a valid component of the second part of the path.
-        if (evaluate(u.right, state)) {
-            List<Transition> transitions = Arrays.stream(model.getTransistionsTo(state))
-                    .filter(transition ->
-                            Arrays.stream(transition.getActions()).anyMatch(action -> u.getRightActions().contains(action)))
-                    .collect(Collectors.toList());
-
-            // Start a new recursion rabbit hole for each transition we can use to get to this state.
-            if (transitions.size() > 0){
-
-            }
-        // If the path hasn't started, it won't be starting here because this state doesn't conform to phiRight.
-        } else if (path == null) {
-            return null;
-        }
-        return null;
-    }
-
-
+    /**
+     * Initial method for the recursive {@see #checkPath(Model, Transition, Until, ArrayList<ArrayList<String>>)} method,
+     * calls checkPath using each of the initial states in the model.
+     * @param model the model to check.
+     * @param u the Until clause to check.
+     * @return
+     */
     public ArrayList<ArrayList<String>> checkPathFormula(Model model, Until u){
         List<State> initStates = Arrays.stream(model.getStates())
                 .filter(State::isInit)
@@ -181,8 +173,8 @@ public class SimpleModelChecker implements ModelChecker {
      * Recursively builds a path that satisfies the PathFormula u.
      * @param model the model this path is in.
      * @param inboundT The current transition we're exploring.
-     * @param u The {@see Class#PathFormula} that path will conform to. Will always be in the the form PhiLeft A u B PhiRight
-     *          where PhiLeft and PhiRight are {@see Class#StateFormula}, A and B are accepted inputs in their respective sides,
+     * @param u The {@see PathFormula} that path will conform to. Will always be in the the form PhiLeft A u B PhiRight
+     *          where PhiLeft and PhiRight are {@see StateFormula}, A and B are accepted inputs in their respective sides,
      *          and u is the {@see Class#Until} path formula.
      * @param path The path is a 2D ArrayList, with each element
      * @return A completed path that satisfies the path formula, or null if one doesn't exist.

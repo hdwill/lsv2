@@ -23,39 +23,41 @@ public class ModelCheckerTest {
     @Test
     public void buildAndCheckModel() {
         try {
-            Model model = Model.parseModel("src/test/resources/model1.json");
+            Model model = Model.parseModel("src/test/resources/testModel1.json");
 
-            StateFormula fairnessConstraint = new FormulaParser("src/test/resources/constraint1.json").parse();
+            StateFormula fairnessConstraint = new FormulaParser("src/test/resources/testConstraint1.json").parse();
             StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
 
             ModelChecker mc = new SimpleModelChecker();
 
-            //TODO: IMPLEMENT
-            //assertTrue(mc.check(model, fairnessConstraint, query));
+            mc.check(model, fairnessConstraint, query);
+
+            assertTrue(true);
         } catch (IOException e) {
             e.printStackTrace();
             fail(e.toString());
         }
     }
 
-    @Test
-    public void checkPathTest(){
-        try {
-            Model model = Model.parseModel("src/test/resources/model1.json");
+//    @Test
+//    public void checkPathTest(){
+//        try {
+//            Model model = Model.parseModel("src/test/resources/model1.json");
+//
+//            StateFormula fairnessConstraint = new FormulaParser("src/test/resources/constraint1.json").parse();
+//            StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
+//
+//            SimpleModelChecker mc = new SimpleModelChecker();
+//
+//
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            fail(e.toString());
+//        }
+//      }
 
-            StateFormula fairnessConstraint = new FormulaParser("src/test/resources/constraint1.json").parse();
-            StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
 
-            SimpleModelChecker mc = new SimpleModelChecker();
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail(e.toString());
-        }
-
-    }
 
 
 

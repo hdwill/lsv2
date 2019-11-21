@@ -1,0 +1,46 @@
+{
+  "states": [
+    {
+      "init": true,
+      "name": "s0",
+      "label": ["p"]
+    },
+    {
+      "init": false,
+      "name": "s1",
+      "label": ["q"]
+    },
+    {
+      "init": false,
+      "name": "s2",
+      "label": ["q"]
+    }
+  ],
+  "transitions": [
+    {
+      "source": "s0",
+      "target": "s1",
+      "actions": ["act1"]
+    },
+    {
+      "source": "s1",
+      "target": "s0",
+      "actions": ["act2"]
+    },
+    {
+      "source": "s0",
+      "target": "s2",
+      "actions": ["act1"]
+    },
+    {
+      "source": "s1",
+      "target": "s2",
+      "actions": ["act3"]
+    },
+    {
+      "source": "s2",
+      "target": "s0",
+      "actions": ["act4"]
+    }
+  ]
+}

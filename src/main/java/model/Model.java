@@ -47,7 +47,7 @@ public class Model {
      * @param startState the state to get transitions from
      * @return the list of transitions for the given state.
      */
-    public Transition[] getTransistions(State startState){
+    public Transition[] getTransistionsFrom(State startState){
         ArrayList<Transition> tList = new ArrayList<>();
         for (Transition transistion : transitions) {
             if (transistion.getSource().equals(startState.getName())){
@@ -57,6 +57,15 @@ public class Model {
         return (Transition[])tList.toArray();
     }
 
+    public Transition[] getTransistionsTo(State endState){
+        ArrayList<Transition> tList = new ArrayList<>();
+        for (Transition transistion : transitions) {
+            if (transistion.getTarget().equals(endState.getName())){
+                tList.add(transistion);
+            }
+        }
+        return (Transition[])tList.toArray();
+    }
     /**
      * Returns a state from the model with the given name.
      * @param name the id of the state to search for.

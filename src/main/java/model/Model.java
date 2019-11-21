@@ -3,7 +3,6 @@ package model;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.*;
 
@@ -47,14 +46,23 @@ public class Model {
      * @param startState the state to get transitions from
      * @return the list of transitions for the given state.
      */
-    public Transition[] getTransistionsFrom(State startState){
+    public Transition[] getTransitionsFrom(State startState){
         ArrayList<Transition> tList = new ArrayList<>();
-        for (Transition transistion : transitions) {
-            if (transistion.getSource().equals(startState.getName())){
-                tList.add(transistion);
+
+        for (Transition transition : transitions) {
+            if (transition.getSource().equals(startState.getName())){
+                tList.add(transition);
             }
         }
-        return (Transition[])tList.toArray();
+
+        Transition[] tempArr = new Transition[tList.size()];
+
+        for (int i = 0 ; i < tempArr.length; i++){
+            tempArr[i] = tList.get(i);
+        }
+
+       return tempArr;
+
     }
 
     public Transition[] getTransistionsTo(State endState){

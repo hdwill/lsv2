@@ -17,4 +17,10 @@ public class ForAll extends StateFormula {
         pathFormula.writeToBuffer(buffer);
         buffer.append(")");
     }
+
+    @Override
+    public String getType(){
+        return "FORALL";
+    }
+
 }

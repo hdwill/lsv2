@@ -25,4 +25,9 @@ public class Always extends PathFormula {
 
     }
 
+    @Override
+    public String getType(){
+        return "ALWAYS";
+    }
+
 }

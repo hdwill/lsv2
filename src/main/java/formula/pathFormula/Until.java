@@ -35,4 +35,9 @@ public class Until extends PathFormula {
         buffer.append(")");
     }
 
+    @Override
+    public String getType(){
+        return "UNTIL";
+    }
+
 }

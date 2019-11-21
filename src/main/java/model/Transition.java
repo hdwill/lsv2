@@ -10,7 +10,8 @@ public class  Transition {
     private String source;
     private String target;
     private String [] actions;
-	
+	private boolean explored;
+
     /**
      * Returns the source state of a transition.
      * @return the id of the source state
@@ -32,7 +33,15 @@ public class  Transition {
     public String[] getActions() {
 	return actions;
     }
-	
+
+    public boolean isExplored() {
+        return explored;
+    }
+
+    public void setExplored(boolean explored) {
+        this.explored = explored;
+    }
+
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder();

@@ -7,6 +7,7 @@ public class State {
     private boolean init;
     private String name;
     private String [] label;
+    private boolean visited;
 	
     /**
      * Is state an initial state
@@ -31,5 +32,12 @@ public class State {
     public String[] getLabel() {
 	return label;
     }
-	
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
 }

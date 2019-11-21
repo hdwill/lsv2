@@ -38,4 +38,26 @@ public class ModelCheckerTest {
         }
     }
 
+    @Test
+    public void checkPathTest(){
+        try {
+            Model model = Model.parseModel("src/test/resources/model1.json");
+
+            StateFormula fairnessConstraint = new FormulaParser("src/test/resources/constraint1.json").parse();
+            StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
+
+            SimpleModelChecker mc = new SimpleModelChecker();
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.toString());
+        }
+
+    }
+
+
+
+
 }

@@ -86,19 +86,15 @@ public class SimpleModelChecker implements ModelChecker {
     }
 
 
-    private ArrayList<ArrayList<String>> checkPathFormula(Model model, Until u){
-
-
-
+    public ArrayList<ArrayList<String>> checkPathFormula(Model model, Until u){
         List<State> initStates = Arrays.stream(model.getStates())
                 .filter(State::isInit)
                 .collect(Collectors.toList());
 
-        for (Transition t : model.getTransitions())
-            t.setExplored(false);
-
-
         for (State initState : initStates) {
+            for (Transition t : model.getTransitions())
+                t.setExplored(false);
+
             for (Transition t : model.getTransistionsFrom(initState)){
                 checkPath(model, t, u, null);
             }

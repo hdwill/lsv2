@@ -20,7 +20,7 @@ public class ModelCheckerTest {
             Model model = Model.parseModel("src/test/resources/testModel1.json");
 
             StateFormula fairnessConstraint = new FormulaParser("src/test/resources/testConstraint1.json").parse();
-            StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
+            StateFormula query = new FormulaParser("src/test/resources/constraint1.json").parse();
 
             ModelChecker mc = new SimpleModelChecker();
 

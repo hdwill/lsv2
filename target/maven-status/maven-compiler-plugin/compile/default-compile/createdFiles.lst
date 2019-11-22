@@ -3,12 +3,11 @@ formula/stateFormula/BoolProp.class
 formula/stateFormula/ForAll.class
 formula/stateFormula/StateFormula.class
 formula/stateFormula/ThereExists.class
-modelChecker/SimpleModelChecker$Predicate.class
-formula/stateFormula/Not.class
 model/Model.class
+formula/stateFormula/Not.class
 formula/FormulaParser.class
-formula/pathFormula/Always.class
 modelChecker/ModelChecker.class
+formula/pathFormula/Always.class
 formula/stateFormula/Or.class
 formula/stateFormula/AtomicProp.class
 formula/pathFormula/Eventually.class
@@ -16,6 +15,6 @@ formula/pathFormula/Until.class
 formula/stateFormula/And.class
 model/Transition.class
 modelChecker/SimpleModelChecker.class
-formula/Reader.class
 formula/pathFormula/PathFormula.class
+formula/Reader.class
 model/State.class

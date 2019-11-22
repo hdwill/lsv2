@@ -1,4 +1,4 @@
 {
-	"formula": "A(p U q)",
+	"formula": "E(p U q)",
 	"b": ["act1"]
 }

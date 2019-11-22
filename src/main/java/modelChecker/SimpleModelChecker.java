@@ -17,10 +17,6 @@ import java.util.HashSet;
 
 public class SimpleModelChecker implements ModelChecker {
     public final HashSet<String> emptySet;
-    public enum Predicate {
-        THERE_EXISTS,
-        FOR_ALL
-    }
 
     public SimpleModelChecker() {
         this.emptySet =  new HashSet<String>();
@@ -28,7 +24,10 @@ public class SimpleModelChecker implements ModelChecker {
 
     @Override
     public boolean check(Model model, StateFormula constraint, StateFormula query) {
-        return evaluate(model, constraint, model.getStates()[0]); //TODO
+        for (State state : model.getStates()) {
+            if (!evaluate(model, constraint, state) || !evaluate(model, query, state)) return false;
+        }
+        return true;
     }
 
     @Override
@@ -147,9 +146,10 @@ public class SimpleModelChecker implements ModelChecker {
             return checkPathFormula(model, (Until)((ThereExists) formula).pathFormula) != null;
         }
 
+        // TODO we were unable to implement ForAll in time. As a placeholder we have replaced this case
+        // with the same behaviour as ThereExists
         else if (formula instanceof ForAll){
-
-
+            return checkPathFormula(model, (Until)((ForAll) formula).pathFormula) != null;
         }
 
         return false;
@@ -180,7 +180,6 @@ public class SimpleModelChecker implements ModelChecker {
             }
         }
         return allPaths;
-
     }
 
     /**
@@ -212,7 +211,6 @@ public class SimpleModelChecker implements ModelChecker {
         // it a valid component of the second part of the path.
         if (path == null && evaluate(model, u.right, state)){
             // If action set B allows anything i.e. is null or if the action conforms to the set.
-            // TODO null or size 0?
             if (u.getRightActions() == null || u.getRightActions().size() == 0 || Arrays.stream(inboundT.getActions()).anyMatch(action -> u.getRightActions().contains(action))){
                 path = new ArrayList<>();
                 path.add(new ArrayList<String>(Arrays.asList(inboundT.getActions())));
